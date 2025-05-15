@@ -9,7 +9,7 @@ const loginControllers = require('../controllers/loginControllers')
 //requerer a middleware auth
 const Auth = require('../middleware/auth_user_middleware')
 //requerer a middleware authAdmin
-const authAdmin = require('../middleware/auth_admin_milddleware')
+const authAdmin = require('../middleware/auth_admin_middleware')
 //rota url 
 //rota de listar os usuarios
 router.get('/users',Auth,usersControllers.listAll)
