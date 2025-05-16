@@ -17,16 +17,14 @@ class LoginController {
         if(user.values != undefined){
             let passValiated = comparePasswordService(password, user.values.passwd)
             if(!passValiated){
-               sendError( res, 406, "Senha Invalida")
+               return sendError(res, 406, "Senha inválida")
             }else{
                let token = jwt.sign({codigo: user.values.codigo, role: user.values.tipo},process.env.SECRET,{expiresIn: 5000}) 
                res.status(200).json({success: true, token: token})
 
             }
         }else{
-            user.values == undefined
-            ? sendError( res, 406, 'Código não encontrado não encontrado')
-            : res.status(404).json({success: false, message: user.error})
+            return sendError(res, 406, 'Código não encontrado')
         }
     }
 
