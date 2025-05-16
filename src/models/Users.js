@@ -14,9 +14,9 @@ class Users {
     }
 
     //criar um metado para buscar um usuario especifico
-    async findById(id) {
+    async findByCodigo(codigo) {
         try {
-            let user = await knex.select(["idusers", "usuario", "codigo"]).where({ id: id }).table('users')
+            let user = await knex.select(["idusers", "usuario", "codigo"]).where({ codigo: codigo }).table('users')
             return user.length > 0
                 ? { validated: true, values: user }
                 : { validated: true, values: undefined }

@@ -15,8 +15,8 @@ module.exports = function(req, res, next) {
 
         try {
             const decoded = jwt.verify(token, process.env.SECRET);
-
-            if (decoded.role === 1) {
+            //ADMIN
+            if (decoded.role === 0) { 
                 return next();
             } else {
                 return sendError(res, 403, 'Usuário sem permissão');

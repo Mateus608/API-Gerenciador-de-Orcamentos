@@ -11,10 +11,10 @@ class UsersControllers{
 
     async listOne(req,res){
         
-        if(isNaN(req.params.id)){
+        if(isNaN(req.params.codigo)){
             res.status(400).json({sucess: false, message: "ID Inválido!"})
         }else{
-            let result = await users.findById(req.params.id)
+            let result = await users.findByCodigo(req.params.codigo)
             if(!result.validated){
                 res.status(404).json({sucess:false, message: result.error})
             }else{

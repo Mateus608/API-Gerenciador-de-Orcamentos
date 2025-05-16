@@ -12,15 +12,13 @@ const Auth = require('../middleware/auth_user_middleware')
 const authAdmin = require('../middleware/auth_admin_middleware')
 //rota url 
 //rota de listar os usuarios
-router.get('/users',Auth,usersControllers.listAll)
+router.get('/users',authAdmin,usersControllers.listAll)
 //rota de listar um unico usuario
-router.get('/user/:id',Auth,usersControllers.listOne)
+router.get('/user/:codigo',authAdmin,usersControllers.listOne)
 //rota de inserir um usuario
 router.post('/user',authAdmin,usersControllers.new)
-//rota de alterar dados(nome e o e-mail) do usuario
-router.put('/user/:id', Auth,usersControllers.editUser)
 //rota para exclusão do usuário
-router.delete('/user/:id', Auth,usersControllers.remove)
+router.delete('/user/:id', authAdmin,usersControllers.remove)
 //rota para login
 router.post('/login', loginControllers.login)
 
