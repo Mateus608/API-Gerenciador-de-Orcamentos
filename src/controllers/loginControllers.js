@@ -15,16 +15,17 @@ class LoginController {
         let user = await users.findByCodigo(codigo)
         
         if(user.values != undefined){
-            let passValiated = comparePasswordService(password, user.values.password_hash)
+            let passValiated = comparePasswordService(password, user.values.passwd)
             if(!passValiated){
                sendError( res, 406, "Senha Invalida")
             }else{
-               let token = jwt.sign({email: user.values.email, role: user.values.role_id},process.env.SECRET,{expiresIn: 5000}) 
+               let token = jwt.sign({codigo: user.values.codigo, role: user.values.tipo},process.env.SECRET,{expiresIn: 5000}) 
                res.status(200).json({success: true, token: token})
+
             }
         }else{
             user.values == undefined
-            ? sendError( res, 406, 'E-mail não encontrado')
+            ? sendError( res, 406, 'Código não encontrado não encontrado')
             : res.status(404).json({success: false, message: user.error})
         }
     }
