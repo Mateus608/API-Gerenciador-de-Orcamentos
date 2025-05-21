@@ -14,11 +14,11 @@ class Users {
     }
 
     //criar um metado para buscar um usuario especifico
-    async findByCodigo(codigo) {
+    async findByUsuario(usuario) {
         try {
-            let user = await knex.select(["idusers", "usuario", "codigo", "passwd", "tipo"]).where({ codigo: codigo }).table('users')
+            let user = await knex.select(["usuario", "passwd", "tipo"]).where({ usuario: usuario }).table('users')
             return user.length > 0
-                ? { validated: true, values: user }
+                ? { validated: true, values: user[0] }
                 : { validated: true, values: undefined }
         } catch (error) {
             return { validated: false, error: error }
@@ -30,9 +30,9 @@ class Users {
             await knex.insert({
                 usuario: usuario,
                 nome: nome,
-                password_hash: passwd,
+                passwd: passwd,
                 codigo: codigo,
-                role_id: tipo
+                tipo: tipo
             }).table('users')
 
             return { validated: true }
